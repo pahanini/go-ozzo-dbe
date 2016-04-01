@@ -1,29 +1,29 @@
 package pgsql
 
 import (
-	"testing"
-	"os"
 	"github.com/go-ozzo/ozzo-dbx"
 	"github.com/stretchr/testify/assert"
+	"os"
+	"testing"
 )
 
 func TestPgsql(t *testing.T) {
 	db := getPgsqlDb()
 	_, err := db.Insert("tests", dbx.Params{
-		"code" : "acdc",
-		"name" : "AC/DC",
+		"code":  "acdc",
+		"name":  "AC/DC",
 		"price": 100,
 	}).Execute()
 	assert.Nil(t, err)
 
 	var (
-		name string
+		name  string
 		price int
 	)
 
 	err = db.Ext().Insert("tests", dbx.Params{
-		"code" : "flo",
-		"name" : "Pink Floyd",
+		"code":  "flo",
+		"name":  "Pink Floyd",
 		"price": 200,
 	}).Returning("name", "price").Row(&name, &price)
 	assert.Equal(t, "Pink Floyd", name)
@@ -45,7 +45,7 @@ func getPgsqlDb() *DB {
 			name VARCHAR(200),
 			price INT
 		)
-	`).Execute();
+	`).Execute()
 	if err != nil {
 		panic(err)
 	}

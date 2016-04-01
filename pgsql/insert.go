@@ -1,11 +1,11 @@
 package pgsql
 
 import (
-	"github.com/go-ozzo/ozzo-dbx"
+	"database/sql"
 	"fmt"
+	"github.com/go-ozzo/ozzo-dbx"
 	"sort"
 	"strings"
-	"database/sql"
 )
 
 // InsertIntoQuery represents a Postgres-specific INSERT query.
@@ -17,7 +17,6 @@ type InsertQuery struct {
 	conflict  []string
 	returning []string
 }
-
 
 // NewInsertQuery creates a new InsertQuery instance.
 func NewInsertQuery(db *DB) *InsertQuery {
@@ -100,8 +99,3 @@ func (s *InsertQuery) Row(a ...interface{}) error {
 func (s *InsertQuery) Execute(a ...interface{}) (sql.Result, error) {
 	return s.Build().Execute()
 }
-
-
-
-
-
